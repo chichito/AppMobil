@@ -84,6 +84,7 @@
                                 <Label Grid.Row="2" Text="{Binding Precio, StringFormat='${0}'}" TextColor="White" FontFamily="ThemeFont"
                                VerticalOptions="End" HorizontalOptions="End"/>
                             </Grid>
+                            
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
