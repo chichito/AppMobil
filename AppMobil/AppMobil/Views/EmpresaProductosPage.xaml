@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Productos"             
+             mc:Ignorable="d"             
+             x:Class="AppMobil.Views.EmpresaProductosPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ffimageloadingsvg:SvgImageSourceConverter 
+                x:Key="SvgImageSourceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout 
+            BindingContext="{Binding EmpresaProductos}"
+            Padding="5">
+            <SearchBar
+                BackgroundColor="Silver"
+                HeightRequest="20"
+                Text="{Binding Filter, Mode=TwoWay}"
+                Placeholder="Digite a Buscar"
+                SearchCommand="{Binding SearchCommand}">
+            </SearchBar>
+            <Grid Padding="30" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Padding="0,10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout Spacing="20" HorizontalOptions="Start" VerticalOptions="Center">
+                        <Label TextColor="White" FontFamily="ThemeFont" FontSize="20" HorizontalOptions="Center"
+                                Text="{Binding Empresa.Nombreempresa}">
+                        </Label>
+                    </StackLayout>
+                    <StackLayout Spacing="0" HorizontalOptions="End" VerticalOptions="Center">
+                        <ffimageloading:CachedImage 
+                            HeightRequest="60" HorizontalOptions="End"
+                            Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}">
+                        </ffimageloading:CachedImage>
+                    </StackLayout>
+                </Grid>
+                <CollectionView x:Name="burgerList" Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding EmpresasProductos}" SelectionMode="Single" 
+                        VerticalScrollBarVisibility="Never" 
+                        SelectionChangedCommand="{Binding SelectionCommand}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" HorizontalItemSpacing="20" Span="2"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" BackgroundColor="#131313" WidthRequest="145" HeightRequest="160">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <ffimageloading:CachedImage 
+                                        Grid.Column="0"
+                                        Margin="10" WidthRequest="125" HeightRequest="110" 
+                                        Aspect="AspectFill"
+                                        Source="{Binding Imagen, Converter={StaticResource SvgImageSourceConverter}}"
+                                        HorizontalOptions="Center" VerticalOptions="Center">
+                                </ffimageloading:CachedImage>
+                                <Label Grid.Row="1" Text="{Binding NombreEmpresa}" TextColor="#F9B522" FontFamily="ThemeFont" 
+                               VerticalOptions="End" HorizontalOptions="Start"/>
+                                <Label Grid.Row="2" Text="{Binding Nombre}" TextColor="#F9B522" FontFamily="ThemeFont" 
+                               VerticalOptions="End" HorizontalOptions="Start"/>
+                                <Label Grid.Row="2" Text="{Binding Precio, StringFormat='${0}'}" TextColor="White" FontFamily="ThemeFont"
+                               VerticalOptions="End" HorizontalOptions="End"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
