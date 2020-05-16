@@ -79,9 +79,12 @@ namespace AppMobil.ViewModels
                 Celular = e.Celular,
                 Logo = e.Logo,
                 Estado = e.Estado,
+                Iniciohorario = e.Iniciohorario,
+                Finalhorario = e.Finalhorario,
                 Categoriaempresa = e.Categoriaempresa,
                 Empleadosempresas = e.Empleadosempresas,
                 Subcategorias = e.Subcategorias,
+                FullTelefonos="",
             });
         }
 

@@ -21,17 +21,28 @@
             BindingContext="{Binding EmpresaCategorias}">
             <StackLayout
                 Padding="5">
-                <Label
-                    FontSize="Large"
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"
-                    Text="{Binding Empresa.Nombreempresa}"
-                    TextColor="Black">
-                </Label>
-                <ffimageloading:CachedImage 
-                    HeightRequest="50"
-                    Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}">
-                </ffimageloading:CachedImage>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" TextColor="Black" FontAttributes="Bold" FontSize="Large" FontFamily="ThemeFont" 
+                            VerticalOptions="Start" HorizontalOptions="Start" 
+                            Text="{Binding Nombreempresa}">
+                    </Label>
+                    <Label Grid.Column="0" TextColor="Black" FontFamily="ThemeFont" 
+                            VerticalOptions="Start" HorizontalOptions="Start" 
+                            Text="{Binding Direccion}">
+                    </Label>
+                    <Label Grid.Column="0" TextColor="Black" FontFamily="ThemeFont" 
+                            VerticalOptions="End" HorizontalOptions="Start" 
+                            Text="{Binding Telefonos}">
+                    </Label>
+                    <ffimageloading:CachedImage 
+                        HeightRequest="50"
+                        Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}">
+                    </ffimageloading:CachedImage>
+                </Grid>
                 <ListView
                     BackgroundColor="Silver"
                     HasUnevenRows="true" 
@@ -46,7 +57,7 @@
                                     HasShadow="true"
                                     Margin="5">
                                     <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectLandCommand}"/>
+                                        <TapGestureRecognizer Command="{Binding SelectCategoriaCommand}"/>
                                     </Frame.GestureRecognizers>
                                     <Grid>
                                         <Grid.ColumnDefinitions>

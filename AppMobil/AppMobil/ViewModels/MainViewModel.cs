@@ -19,6 +19,11 @@ namespace AppMobil.ViewModels
             get;
             set;
         }
+        public List<EmpresasProductos> EmpresasProdcutosList
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region ViewModels
@@ -48,6 +53,11 @@ namespace AppMobil.ViewModels
             set;
         }
         public ProductosViewModel Productos
+        {
+            get;
+            set;
+        }
+        public ProductoViewModel Producto
         {
             get;
             set;

@@ -14,7 +14,6 @@
         <ResourceDictionary>
             <ffimageloadingsvg:SvgImageSourceConverter 
                 x:Key="SvgImageSourceConverter">
-
             </ffimageloadingsvg:SvgImageSourceConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -38,9 +37,15 @@
                         <Label TextColor="White" FontFamily="LightFont" FontSize="30"  VerticalOptions="Center" HorizontalOptions="Center"
                                 Text="{Binding Empresa.Nombreempresa}">
                         </Label>
-                        <ffimageloading:CachedImage 
-                            HeightRequest="60" HorizontalOptions="End"
-                            Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}">
+                        <ffimageloading:CachedImage  
+                            HeightRequest="100" 
+                            Aspect="AspectFill"
+                            DownsampleHeight="100"
+                            DownsampleUseDipUnits="false" 
+                            CacheDuration="0"
+                            HorizontalOptions="End"
+                            Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}"
+                            CacheType="Memory">
                             <ffimageloading:CachedImage.Transformations>
                                 <fftransformations:CircleTransformation/>
                             </ffimageloading:CachedImage.Transformations>
@@ -51,40 +56,53 @@
                                 Text="{Binding Subcategoria.Nombre}">
                         </Label>
                         <ffimageloading:CachedImage 
-                            HeightRequest="60" HorizontalOptions="End"
-                            Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}">
+                            HeightRequest="100" Aspect="AspectFill"
+                            DownsampleHeight="100"
+                            DownsampleUseDipUnits="false" 
+                            CacheDuration="0"
+                            HorizontalOptions="End"
+                            Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}"
+                            CacheType="Memory">
                         </ffimageloading:CachedImage>
                     </StackLayout>
                 </Grid>
                 <CollectionView x:Name="burgerList" Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding EmpresasProductos}" SelectionMode="Single" 
-                        VerticalScrollBarVisibility="Never" 
-                        SelectionChangedCommand="{Binding SelectionCommand}">
+                        VerticalScrollBarVisibility="Never">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" HorizontalItemSpacing="20" Span="2"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10" BackgroundColor="#131313" WidthRequest="145" HeightRequest="160">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <ffimageloading:CachedImage 
+                            <Frame
+                                CornerRadius="20"
+                                HasShadow="true" BackgroundColor="#131313">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectionCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="10" BackgroundColor="#131313" WidthRequest="145" HeightRequest="160">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ffimageloading:CachedImage 
                                         Grid.Column="0"
-                                        Margin="10" WidthRequest="125" HeightRequest="110" 
-                                        Aspect="AspectFill"
+                                        Margin="1" WidthRequest="125" HeightRequest="110" 
+                                        Aspect="AspectFill"  DownsampleHeight="100"
+                                        DownsampleUseDipUnits="false" 
+                                        CacheDuration="0"
+                                        CacheType="Memory"
                                         Source="{Binding Imagen, Converter={StaticResource SvgImageSourceConverter}}"
                                         HorizontalOptions="Center" VerticalOptions="Center">
-                                </ffimageloading:CachedImage>
-                                <Label Grid.Row="1" Text="{Binding NombreEmpresa}" TextColor="#F9B522" FontFamily="ThemeFont" 
+                                    </ffimageloading:CachedImage>
+                                    <Label Grid.Row="1" Text="{Binding NombreEmpresa}" TextColor="#F9B522" FontFamily="ThemeFont" 
                                VerticalOptions="End" HorizontalOptions="Start"/>
-                                <Label Grid.Row="2" Text="{Binding Nombre}" TextColor="#F9B522" FontFamily="ThemeFont" 
+                                    <Label Grid.Row="2" Text="{Binding Nombre}" TextColor="#F9B522" FontFamily="ThemeFont" 
                                VerticalOptions="End" HorizontalOptions="Start"/>
-                                <Label Grid.Row="2" Text="{Binding Precio, StringFormat='${0}'}" TextColor="White" FontFamily="ThemeFont"
+                                    <Label Grid.Row="2" Text="{Binding Precio, StringFormat='${0}'}" TextColor="White" FontFamily="ThemeFont"
                                VerticalOptions="End" HorizontalOptions="End"/>
-                            </Grid>
-                            
+                                </Grid>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

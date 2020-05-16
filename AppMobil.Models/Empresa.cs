@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,10 @@ namespace AppMobil.Models
 
         [JsonProperty("Estado")]
         public bool Estado { get; set; }
+        [JsonProperty("Iniciohorario")]
+        public TimeSpan? Iniciohorario { get; set; }
+        [JsonProperty("Finalhorario")]
+        public TimeSpan? Finalhorario { get; set; }
 
         [JsonProperty("Categoriaempresa")]
         public IList<object> Categoriaempresa { get; set; }
@@ -39,5 +44,15 @@ namespace AppMobil.Models
 
         [JsonProperty("Subcategorias")]
         public List<Subcategoria> Subcategorias { get; set; }
+
+        [Display(Name = "Telefonos")]
+        public string FullTelefonos
+        {
+            get
+            {
+                return string.Format("Cel: {0} Tel: {1}", this.Celular, this.Telefono);
+            }
+            set { };
+        }
     }
 }

@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -13,12 +14,12 @@ namespace AppMobil.ViewModels
     public class EmpresasProductosViewModel : BaseViewModel
     {
         #region Atributos
-        private ObservableCollection<EmpresasProductos> empresasproductos;
+        private ObservableCollection<ProductosItemViewModel> empresasproductos;
         private bool isRefreshing;
         private string filter;
         #endregion
         #region Propiedades
-        public ObservableCollection<EmpresasProductos> EmpresasProductos
+        public ObservableCollection<ProductosItemViewModel> EmpresasProductos
         {
             get { return empresasproductos; }
             set { SetValue(ref empresasproductos, value); }
@@ -62,11 +63,14 @@ namespace AppMobil.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error!", response.Message, "OK");
                 return;
             }
-            //MainViewModel.GetInstance().EmpresasList = (List<EmpresasProductos>)response.Result;
-            var leempre = (List<EmpresasProductos>)response.Result;
-            EmpresasProductos = new ObservableCollection<EmpresasProductos>(leempre);
+
+            MainViewModel.GetInstance().EmpresasProdcutosList = (List<EmpresasProductos>)response.Result;
+            this.EmpresasProductos = new ObservableCollection<ProductosItemViewModel>(ToEmpresaProductosItemViewModel());
+            //var leempre = (List<EmpresasProductos>)response.Result;
+            //EmpresasProductos = new ObservableCollection<EmpresasProductos>(leempre);
             this.IsRefreshing = false;
         }
+
         #endregion
 
         #region Comandos
@@ -76,6 +80,31 @@ namespace AppMobil.ViewModels
             {
                 return new RelayCommand(Search);
             }
+        }
+        #endregion
+        #region Metodos
+        private IEnumerable<ProductosItemViewModel> ToEmpresaProductosItemViewModel()
+        {
+            return MainViewModel.GetInstance().EmpresasProdcutosList.Select(e => new ProductosItemViewModel
+            {
+                Codigo = e.Codigo,
+                Nombre = e.Nombre,
+                Descripcion = e.Descripcion,
+                Imagen = e.Imagen,
+                Cantidad = e.Cantidad,
+                Precio = e.Precio,
+                Iva = e.Iva,
+                Recargos = e.Recargos,
+                CodigoSubcategoria = e.CodigoSubcategoria,
+                NombreSubCategoria = e.NombreSubCategoria,
+                DescripcionEmpresa = e.DescripcionEmpresa,
+                CodigoEmpresa = e.CodigoEmpresa,
+                NombreEmpresa = e.NombreEmpresa,
+                DireccionEmpresa = e.DireccionEmpresa,
+                TelefonoEmpresa = e.TelefonoEmpresa,
+                CelularEmpresa = e.CelularEmpresa,
+                LogoEmpresa = e.LogoEmpresa,
+            });
         }
         private void Search()
         {

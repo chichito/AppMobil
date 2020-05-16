@@ -12,15 +12,15 @@ namespace AppMobil.ViewModels
     public class EmpresaCategoriaItemViewModel: Subcategoria
     {
         #region Commands
-        public ICommand SelectLandCommand
+        public ICommand SelectCategoriaCommand
         {
             get
             {
-                return new RelayCommand(SelectLand);
+                return new RelayCommand(SelectCategoria);
             }
         }
         #endregion
-        private async void SelectLand()
+        private async void SelectCategoria()
         {
             //MainViewModel.GetInstance().EmpresaCategorias = new EmpresaCategoriasViewModel(this);
             MainViewModel.GetInstance().Productos = new ProductosViewModel(this,MainViewModel.GetInstance().EmpresaCategorias.Empresa);

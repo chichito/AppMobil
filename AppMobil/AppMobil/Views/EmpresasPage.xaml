@@ -44,7 +44,7 @@
                                 HasShadow="true"
                                 Margin="5">
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectLandCommand}"/>
+                                    <TapGestureRecognizer Command="{Binding SelectEmpresaCommand}"/>
                                 </Frame.GestureRecognizers>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -52,7 +52,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <ffimageloading:CachedImage 
+                                    <ffimageloading:CachedImage CacheType="None"
                                         Grid.Column="0"
                                         HeightRequest="30"
                                         Source="{Binding Logo, Converter={StaticResource SvgImageSourceConverter}}"
@@ -64,16 +64,42 @@
                                     <StackLayout 
                                         Grid.Column="1"
                                         VerticalOptions="Center">
-                                        <Label 
-                                            FontAttributes="Bold"
-                                            FontSize="Medium" 
-                                            Text="{Binding Nombreempresa}"
-                                            TextColor="Black">
-                                        </Label>
-                                        <Label 
-                                            Text="{Binding Direccion}"
-                                            TextColor="Black">
-                                        </Label>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="0" TextColor="Black" FontAttributes="Bold" FontSize="Medium" FontFamily="ThemeFont" 
+                                                    VerticalOptions="Start" HorizontalOptions="Start" 
+                                                    Text="{Binding Nombreempresa}">
+                                            </Label>
+                                            <StackLayout 
+                                                Grid.Row="1"
+                                                VerticalOptions="Center">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Column="0" TextColor="Black" FontFamily="ThemeFont" 
+                                                            VerticalOptions="Start" HorizontalOptions="Start" 
+                                                            Text="{Binding Direccion}">
+                                                    </Label>
+                                                    <StackLayout 
+                                                        Grid.Column="1"
+                                                        VerticalOptions="Center">
+                                                        <Label TextColor="Black" FontFamily="ThemeFont" 
+                                                            VerticalOptions="Start" HorizontalOptions="End" 
+                                                            Text="{Binding Iniciohorario}">
+                                                        </Label>
+                                                        <Label TextColor="Black" FontFamily="ThemeFont" 
+                                                            VerticalOptions="End" HorizontalOptions="End" 
+                                                            Text="{Binding Finalhorario}">
+                                                        </Label>
+                                                    </StackLayout>
+                                                </Grid>
+                                            </StackLayout>
+                                        </Grid>
                                     </StackLayout>
                                     <Image 
                                         Grid.Column="2"
