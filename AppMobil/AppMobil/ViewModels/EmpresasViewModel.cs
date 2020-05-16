@@ -84,7 +84,6 @@ namespace AppMobil.ViewModels
                 Categoriaempresa = e.Categoriaempresa,
                 Empleadosempresas = e.Empleadosempresas,
                 Subcategorias = e.Subcategorias,
-                FullTelefonos="",
             });
         }
 
