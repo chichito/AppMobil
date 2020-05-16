@@ -45,14 +45,14 @@ namespace AppMobil.Models
         [JsonProperty("Subcategorias")]
         public List<Subcategoria> Subcategorias { get; set; }
 
-        [Display(Name = "Telefonos")]
-        public string FullTelefonos
-        {
-            get
-            {
-                return string.Format("Cel: {0} Tel: {1}", this.Celular, this.Telefono);
-            }
-            set { };
-        }
+        //[Display(Name = "Telefonos")]
+        //public string FullTelefonos
+        //{
+        //    get
+        //    {
+        //        return string.Format("Cel: {0} Tel: {1}", this.Celular, this.Telefono);
+        //    }
+        //    set { };
+        //}
     }
 }
