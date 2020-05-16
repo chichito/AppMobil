@@ -45,7 +45,7 @@
                             </Label>
                             <Label Grid.Row="2" TextColor="Black" FontFamily="ThemeFont" 
                                 VerticalOptions="End" HorizontalOptions="Start" 
-                                Text="{Binding Empresa.Celular}">
+                                Text="{Binding Empresa.FullTelefonos}">
                             </Label>
                         </Grid>
                     </StackLayout>

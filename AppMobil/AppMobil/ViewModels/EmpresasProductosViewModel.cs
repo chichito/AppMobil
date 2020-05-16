@@ -66,8 +66,6 @@ namespace AppMobil.ViewModels
 
             MainViewModel.GetInstance().EmpresasProdcutosList = (List<EmpresasProductos>)response.Result;
             this.EmpresasProductos = new ObservableCollection<ProductosItemViewModel>(ToEmpresaProductosItemViewModel());
-            //var leempre = (List<EmpresasProductos>)response.Result;
-            //EmpresasProductos = new ObservableCollection<EmpresasProductos>(leempre);
             this.IsRefreshing = false;
         }
 

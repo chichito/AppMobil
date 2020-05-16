@@ -27,25 +27,52 @@
                 Placeholder="Digite a Buscar"
                 SearchCommand="{Binding SearchCommand}">
             </SearchBar>
-            <Grid Padding="30" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid Padding="5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Padding="0,10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                    <StackLayout Spacing="20" HorizontalOptions="Start" VerticalOptions="Center">
-                        <Label TextColor="White" FontFamily="ThemeFont" FontSize="20" HorizontalOptions="Center"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout 
+                        Grid.Column="0"
+                        VerticalOptions="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" TextColor="Black" FontAttributes="Bold" FontSize="Large" FontFamily="ThemeFont" 
+                                VerticalOptions="Start" HorizontalOptions="Start" 
                                 Text="{Binding Empresa.Nombreempresa}">
-                        </Label>
-                    </StackLayout>
-                    <StackLayout Spacing="0" HorizontalOptions="End" VerticalOptions="Center">
-                        <ffimageloading:CachedImage 
-                            HeightRequest="60" HorizontalOptions="End"
-                            Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}">
+                                </Label>
+                                <Label Grid.Row="1" TextColor="Black" FontFamily="ThemeFont" 
+                                VerticalOptions="Start" HorizontalOptions="Start" 
+                                Text="{Binding Empresa.Direccion}">
+                                </Label>
+                                <Label Grid.Row="2" TextColor="Black" FontFamily="ThemeFont" 
+                                VerticalOptions="End" HorizontalOptions="Start" 
+                                Text="{Binding Empresa.FullTelefonos}">
+                                </Label>
+                            </Grid>
+                        </StackLayout>
+                        <ffimageloading:CachedImage CacheType="None"
+                                                Grid.Column="1"
+                                                HeightRequest="50"
+                                                Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}"
+                                                WidthRequest="60">
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:CircleTransformation/>
+                            </ffimageloading:CachedImage.Transformations>
                         </ffimageloading:CachedImage>
-                    </StackLayout>
+                    </Grid>
                 </Grid>
-                <CollectionView x:Name="burgerList" Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding EmpresasProductos}" SelectionMode="Single" 
+                <CollectionView x:Name="burgerList" Margin="0,5,0,0" Grid.Row="1" ItemsSource="{Binding EmpresasProductos}" SelectionMode="Single" 
                         VerticalScrollBarVisibility="Never" 
                         SelectionChangedCommand="{Binding SelectionCommand}">
                     <CollectionView.ItemsLayout>
@@ -53,26 +80,33 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10" BackgroundColor="#131313" WidthRequest="145" HeightRequest="160">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <ffimageloading:CachedImage 
+                            <Frame
+                                CornerRadius="20"
+                                HasShadow="true" BackgroundColor="#131313">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectionCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="10" BackgroundColor="#131313" WidthRequest="145" HeightRequest="160">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ffimageloading:CachedImage 
                                         Grid.Column="0"
                                         Margin="10" WidthRequest="125" HeightRequest="110" 
                                         Aspect="AspectFill"
                                         Source="{Binding Imagen, Converter={StaticResource SvgImageSourceConverter}}"
                                         HorizontalOptions="Center" VerticalOptions="Center">
-                                </ffimageloading:CachedImage>
-                                <Label Grid.Row="1" Text="{Binding NombreEmpresa}" TextColor="#F9B522" FontFamily="ThemeFont" 
+                                    </ffimageloading:CachedImage>
+                                    <Label Grid.Row="1" Text="{Binding NombreEmpresa}" TextColor="#F9B522" FontFamily="ThemeFont" 
                                VerticalOptions="End" HorizontalOptions="Start"/>
-                                <Label Grid.Row="2" Text="{Binding Nombre}" TextColor="#F9B522" FontFamily="ThemeFont" 
+                                    <Label Grid.Row="2" Text="{Binding Nombre}" TextColor="#F9B522" FontFamily="ThemeFont" 
                                VerticalOptions="End" HorizontalOptions="Start"/>
-                                <Label Grid.Row="2" Text="{Binding Precio, StringFormat='${0}'}" TextColor="White" FontFamily="ThemeFont"
+                                    <Label Grid.Row="2" Text="{Binding Precio, StringFormat='${0}'}" TextColor="White" FontFamily="ThemeFont"
                                VerticalOptions="End" HorizontalOptions="End"/>
-                            </Grid>
+                                </Grid>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
