@@ -52,7 +52,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <ffimageloading:CachedImage CacheType="None"
+                                    <ffimageloading:CachedImage CacheType="Memory"
                                         Grid.Column="0"
                                         HeightRequest="30"
                                         Source="{Binding Logo, Converter={StaticResource SvgImageSourceConverter}}"

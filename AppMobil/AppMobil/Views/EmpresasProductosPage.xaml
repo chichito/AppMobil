@@ -52,7 +52,7 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <ffimageloading:CachedImage CacheType="None"
+                                    <ffimageloading:CachedImage CacheType="Memory"
                                         Grid.Column="0"
                                         WidthRequest="125" HeightRequest="110" 
                                         Aspect="AspectFill"

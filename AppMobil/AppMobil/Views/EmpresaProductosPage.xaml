@@ -61,7 +61,7 @@
                                 </Label>
                             </Grid>
                         </StackLayout>
-                        <ffimageloading:CachedImage CacheType="None"
+                        <ffimageloading:CachedImage CacheType="Memory"
                                                 Grid.Column="1"
                                                 HeightRequest="50"
                                                 Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}"

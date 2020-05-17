@@ -163,4 +163,10 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_chevron_right.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\right.png" />
+  </ItemGroup>
 </Project>
