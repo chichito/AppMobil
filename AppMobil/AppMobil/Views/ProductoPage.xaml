@@ -71,7 +71,7 @@
                 </StackLayout>
                 <StackLayout 
                     Grid.Row="1">
-                    <ScrollView HorizontalOptions="FillAndExpand">
+                    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <Grid Padding="5,5" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
