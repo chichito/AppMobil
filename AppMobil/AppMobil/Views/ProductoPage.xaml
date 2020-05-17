@@ -3,15 +3,95 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Productos"
              mc:Ignorable="d"
              x:Class="AppMobil.Views.ProductoPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ffimageloadingsvg:SvgImageSourceConverter 
+                x:Key="SvgImageSourceConverter">
+            </ffimageloadingsvg:SvgImageSourceConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout  BindingContext="{Binding Producto}">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout  BindingContext="{Binding Producto}"
+                      Padding="5">
+            <Grid Padding="5,5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Padding="0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout 
+                        Grid.Column="0"
+                        VerticalOptions="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" TextColor="Black" FontAttributes="Bold" FontSize="Large" FontFamily="ThemeFont" 
+                                VerticalOptions="Start" HorizontalOptions="Start" 
+                                Text="{Binding EmpresasProductos.NombreEmpresa}">
+                                </Label>
+                                <Label Grid.Row="1" TextColor="Black" FontFamily="ThemeFont" 
+                                VerticalOptions="Start" HorizontalOptions="Start" 
+                                Text="{Binding EmpresasProductos.DireccionEmpresa}">
+                                </Label>
+                                <Label Grid.Row="2" TextColor="Black" FontFamily="ThemeFont" 
+                                VerticalOptions="End" HorizontalOptions="Start" 
+                                Text="{Binding EmpresasProductos.FullTelefonos}">
+                                </Label>
+                            </Grid>
+                        </StackLayout>
+                        <ffimageloading:CachedImage CacheType="None"
+                                                Grid.Column="1"
+                                                HeightRequest="100"
+                                                Source="{Binding EmpresasProductos.LogoEmpresa, Converter={StaticResource SvgImageSourceConverter}}"
+                                                WidthRequest="100">
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:CircleTransformation/>
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+                    </Grid>
+                </Grid>
+                <StackLayout 
+                        Grid.Row="1">
+                    <Grid Padding="10,10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ffimageloading:CachedImage 
+                                CacheType="None"
+                                Grid.Column="0"
+                                HeightRequest="200"
+                                VerticalOptions="Start" HorizontalOptions="Start"
+                                Source="{Binding EmpresasProductos.Imagen, Converter={StaticResource SvgImageSourceConverter}}"
+                                WidthRequest="200">
+                                <ffimageloading:CachedImage.Transformations>
+                                    <fftransformations:CornersTransformation/>
+                                </ffimageloading:CachedImage.Transformations>
+                            </ffimageloading:CachedImage>
+                        </Grid>
+                    </Grid>
+                </StackLayout>
+                <Grid Padding="0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                </Grid>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

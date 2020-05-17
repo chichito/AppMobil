@@ -27,46 +27,52 @@
                 Placeholder="Digite a Buscar"
                 SearchCommand="{Binding SearchCommand}">
             </SearchBar>
-            <Grid Padding="5,5" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid Padding="5,5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Padding="0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                    <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Start" VerticalOptions="Center">
-                        <Label TextColor="White" FontFamily="LightFont" FontSize="30"  VerticalOptions="Center" HorizontalOptions="Center"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout 
+                        Grid.Column="0"
+                        VerticalOptions="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" TextColor="Black" FontAttributes="Bold" FontSize="Large" FontFamily="ThemeFont" 
+                                VerticalOptions="Start" HorizontalOptions="Start" 
                                 Text="{Binding Empresa.Nombreempresa}">
-                        </Label>
-                        <ffimageloading:CachedImage  
-                            HeightRequest="100" 
-                            Aspect="AspectFill"
-                            DownsampleHeight="100"
-                            DownsampleUseDipUnits="false" 
-                            CacheDuration="0"
-                            HorizontalOptions="End"
-                            Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}"
-                            CacheType="Memory">
+                                </Label>
+                                <Label Grid.Row="1" TextColor="Black" FontFamily="ThemeFont" 
+                                VerticalOptions="Start" HorizontalOptions="Start" 
+                                Text="{Binding Empresa.Direccion}">
+                                </Label>
+                                <Label Grid.Row="2" TextColor="Black" FontFamily="ThemeFont" 
+                                VerticalOptions="End" HorizontalOptions="Start" 
+                                Text="{Binding Empresa.FullTelefonos}">
+                                </Label>
+                            </Grid>
+                        </StackLayout>
+                        <ffimageloading:CachedImage CacheType="None"
+                                                Grid.Column="1"
+                                                HeightRequest="50"
+                                                Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}"
+                                                WidthRequest="60">
                             <ffimageloading:CachedImage.Transformations>
                                 <fftransformations:CircleTransformation/>
                             </ffimageloading:CachedImage.Transformations>
                         </ffimageloading:CachedImage>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="End" VerticalOptions="Center">
-                        <Label TextColor="White" Margin="0,-5,0,0" FontFamily="LightFont" Opacity="0.5" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"
-                                Text="{Binding Subcategoria.Nombre}">
-                        </Label>
-                        <ffimageloading:CachedImage 
-                            HeightRequest="100" Aspect="AspectFill"
-                            DownsampleHeight="100"
-                            DownsampleUseDipUnits="false" 
-                            CacheDuration="0"
-                            HorizontalOptions="End"
-                            Source="{Binding Empresa.Logo, Converter={StaticResource SvgImageSourceConverter}}"
-                            CacheType="Memory">
-                        </ffimageloading:CachedImage>
-                    </StackLayout>
+                    </Grid>
                 </Grid>
-                <CollectionView x:Name="burgerList" Margin="0,40,0,0" Grid.Row="1" ItemsSource="{Binding EmpresasProductos}" SelectionMode="Single" 
+                <CollectionView x:Name="burgerList" Margin="0,5,0,0" Grid.Row="1" ItemsSource="{Binding EmpresasProductos}" SelectionMode="Single" 
                         VerticalScrollBarVisibility="Never">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" HorizontalItemSpacing="20" Span="2"/>

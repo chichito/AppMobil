@@ -109,6 +109,7 @@ namespace AppMobil.ViewModels
                 TelefonoEmpresa = e.TelefonoEmpresa,
                 CelularEmpresa = e.CelularEmpresa,
                 LogoEmpresa = e.LogoEmpresa,
+                FullTelefonos = "Cel: " + e.CelularEmpresa + " Telf: " + e.TelefonoEmpresa,
             });
         }
 

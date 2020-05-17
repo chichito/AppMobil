@@ -52,9 +52,9 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <ffimageloading:CachedImage 
+                                    <ffimageloading:CachedImage CacheType="None"
                                         Grid.Column="0"
-                                        Margin="10" WidthRequest="125" HeightRequest="110" 
+                                        WidthRequest="125" HeightRequest="110" 
                                         Aspect="AspectFill"
                                         Source="{Binding Imagen, Converter={StaticResource SvgImageSourceConverter}}"
                                         HorizontalOptions="Center" VerticalOptions="Center">
