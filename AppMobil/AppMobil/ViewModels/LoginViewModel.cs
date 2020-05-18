@@ -57,9 +57,9 @@ namespace AppMobil.ViewModels
 
             this.IsRemembered = true;
             this.IsEnabled = true;
-
             this.Email = "fer";
             this.Password = "fer";
+            Login();
         }
         #endregion
         #region Commands

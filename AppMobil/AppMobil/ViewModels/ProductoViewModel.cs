@@ -21,39 +21,9 @@ namespace AppMobil.ViewModels
         private decimal recargos;
         private decimal total;
         private ObservableCollection<Galeriaimagenes> galeriaimagenes;
-        private int position;
-        private Galeriaimagenes selectedImagen;
-        public Galeriaimagenes SelectedImagen
-        {
-            get { return selectedImagen; }
-            set
-            {
-                selectedImagen = value;
-                OnPropertyChanged();
-            }
-        }
 
         #endregion
         #region Propiedades
-        public int Position
-        {
-            get
-            {
-                if (position != galeriaimagenes.IndexOf(selectedImagen))
-                    return galeriaimagenes.IndexOf(selectedImagen);
-
-                return position;
-            }
-            set
-            {
-                position = value;
-                selectedImagen = galeriaimagenes[position];
-
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(selectedImagen));
-            }
-        }
-
         public ObservableCollection<Galeriaimagenes> Galeriaimagenes
         {
             get { return this.galeriaimagenes; }
@@ -160,6 +130,38 @@ namespace AppMobil.ViewModels
             this.Recargos = this.Recargos;
             this.Total = this.Subtotal + this.Iva + this.Recargos;
         }
+
+        private Galeriaimagenes selectedBurger;
+        public Galeriaimagenes SelectedBurger
+        {
+            get { return selectedBurger; }
+            set
+            {
+                selectedBurger = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int position;
+        public int Position
+        {
+            get
+            {
+                if (position != galeriaimagenes.IndexOf(selectedBurger))
+                    return galeriaimagenes.IndexOf(selectedBurger);
+
+                return position;
+            }
+            set
+            {
+                position = value;
+                selectedBurger = galeriaimagenes[position];
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedBurger));
+            }
+        }
+
         private void ChangePosition(object obj)
         {
             string direction = (string)obj;
