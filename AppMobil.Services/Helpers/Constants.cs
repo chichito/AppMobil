@@ -8,13 +8,13 @@ namespace AppMobil.Services.Helpers
 {
     public class Constants
     {
-        public const string StoreWebApiURL = "http://10.134.7.106:5000/api/";
-        //public const string StoreWebApiURL = "http://192.168.1.38:5000/api/";
+        //public const string StoreWebApiURL = "http://10.134.7.106:5000/api/";
+        public const string StoreWebApiURL = "http://192.168.1.38:5000/api/";
 
         #region SignalR Constants
         // URL
-        public const string SignalRURL = "http://10.134.7.106:5000/StoreHub";
-        //public const string SignalRURL = "http://192.168.1.38:5000/StoreHub";
+        //public const string SignalRURL = "http://10.134.7.106:5000/StoreHub";
+        public const string SignalRURL = "http://192.168.1.38:5000/StoreHub";
 
         // Groups
         public const string Usuario = "Usuario";

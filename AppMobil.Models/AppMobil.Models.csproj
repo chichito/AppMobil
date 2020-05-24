@@ -48,6 +48,9 @@
     <Compile Include="Empresa.cs" />
     <Compile Include="EmpresasProductos.cs" />
     <Compile Include="Gleriaimagenes.cs" />
+    <Compile Include="Pedido.cs" />
+    <Compile Include="Pedidosdetalle.cs" />
+    <Compile Include="Pedidosempresas.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Subcategoria.cs" />
     <Compile Include="Usuario.cs" />

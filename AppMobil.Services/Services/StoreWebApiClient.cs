@@ -134,19 +134,40 @@ namespace AppMobil.Services.Services
             return default(T);
         }
 
-        public async Task<T> PostItem<T>(string service, T item)
+        public async Task<Response> PostItem<T>(string service, T item)
         {
-            var body = JsonConvert.SerializeObject(item);
-            var content = new StringContent(body, Encoding.UTF8, "application/json");
-            var response = await PostAsync(service, content);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(json);
+                var body = JsonConvert.SerializeObject(item);
+                var content = new StringContent(body, Encoding.UTF8, "application/json");
+                var response = await PostAsync(service, content);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                var list = JsonConvert.DeserializeObject<T>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Ok",
+                    Result = list,
+                };
             }
-            //throw new Exception(response.ReasonPhrase);
-            return default(T);
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
         }
 
         public async Task<bool> PutItem<T>(string service, T item, int id)

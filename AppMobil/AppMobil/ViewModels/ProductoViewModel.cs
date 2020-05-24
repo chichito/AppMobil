@@ -1,9 +1,11 @@
 ﻿using AppMobil.Models;
 using AppMobil.Services.Services;
+using AppMobil.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -15,7 +17,7 @@ namespace AppMobil.ViewModels
         #region Attributes
         private string mensajeIva;
         private string mensajeRecargos;
-        private int cantidad;
+        private decimal cantidad;
         private decimal subtotal;
         private decimal iva;
         private decimal recargos;
@@ -45,7 +47,7 @@ namespace AppMobil.ViewModels
             get { return this.mensajeRecargos; }
             set { SetValue(ref this.mensajeRecargos, value); }
         }
-        public int Cantidad
+        public decimal Cantidad
         {
             get { return this.cantidad; }
             set 
@@ -106,16 +108,91 @@ namespace AppMobil.ViewModels
             this.EmpresasProductos.CelularEmpresa = empresasProductos.CelularEmpresa;
             this.EmpresasProductos.LogoEmpresa = empresasProductos.LogoEmpresa;
             this.EmpresasProductos.FullTelefonos = empresasProductos.FullTelefonos;
+            this.Recargos = Convert.ToDecimal(this.EmpresasProductos.Recargos);
             CargarGaleriaImagenes();
         }
 
         #endregion
         #region Comandos
+        public ICommand ComprasCommand
+        {
+            get
+            {
+                return new RelayCommand(Compras);
+            }
+        }
+
+        public ICommand VerComprasCommand
+        {
+            get
+            {
+                return new RelayCommand(VerComprasAsync);
+            }
+        }
+
         public ICommand ChangePositionCommand => new Command(ChangePosition);
 
         #endregion
 
         #region Metodos
+        private async void Compras()
+        {
+            if (MainViewModel.GetInstance().Pedidosempresas == null)
+            {
+                MainViewModel.GetInstance().Pedidosempresas = new Pedidosempresas();
+                MainViewModel.GetInstance().Pedidosempresas.Codigousuario = App.CurrentUsuario.Codigo;
+                MainViewModel.GetInstance().Pedidosempresas.Fechapedido = DateTime.Now;
+                MainViewModel.GetInstance().Pedidosempresas.Codigoestado = 1;
+            }
+            
+            Pedido pedido = null;
+            foreach (Pedido ped in MainViewModel.GetInstance().Pedidosempresas.Pedidos)
+                if (ped.Codigoempresa == this.EmpresasProductos.CodigoEmpresa)
+                    pedido = ped;
+            if (pedido == null)
+            {
+                pedido = new Pedido();
+                pedido.Codigoempresa = this.EmpresasProductos.CodigoEmpresa;
+                pedido.Nombreempresa = this.EmpresasProductos.NombreEmpresa;
+                pedido.Logoempresa = this.EmpresasProductos.LogoEmpresa;
+                pedido.Codigoestadodespacho = 1;
+                pedido.Codigoestadopedido = 1;
+                MainViewModel.GetInstance().Pedidosempresas.Pedidos.Add(pedido);
+            }
+
+            Pedidosdetalle pedidosdetalle = null; 
+            foreach (Pedidosdetalle pedDet in pedido.Pedidosdetalles)
+                if (pedDet.Codigoproducto == this.EmpresasProductos.Codigo)
+                    pedidosdetalle = pedDet;
+
+            if (pedidosdetalle == null)
+                pedidosdetalle = new Pedidosdetalle();
+            pedidosdetalle.Codigoproducto = this.EmpresasProductos.Codigo;
+            pedidosdetalle.Nombreproducto = this.EmpresasProductos.Nombre;
+            pedidosdetalle.Logoproducto = this.EmpresasProductos.Imagen;
+            pedidosdetalle.Codigoestado = 1;
+            pedidosdetalle.Cantidad = this.Cantidad;
+            pedidosdetalle.Iva = this.Iva;
+            pedidosdetalle.Recargos = this.Recargos;
+            pedidosdetalle.Precio = this.Total;
+            pedido.Pedidosdetalles.Add(pedidosdetalle);
+
+            //var response = await StoreWebApiClient.Instance.PostItem<Pedidosempresas>("pedidosempresas", MainViewModel.GetInstance().Pedidosempresas);
+            //if (!response.IsSuccess)
+            //{
+            //    await Application.Current.MainPage.DisplayAlert("Error!", response.Message, "OK");
+            //    return;
+            //}
+            await Application.Current.MainPage.DisplayAlert("Mensage", "Agregado Exitosamente", "OK");
+            //MainViewModel.GetInstance().Pedidosempresas = null;
+        }
+
+        private async void VerComprasAsync()
+        {
+            MainViewModel.GetInstance().VerPedidos = new VerPedidosViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new VerPedidosPage());
+
+        }
         public async void CargarGaleriaImagenes()
         {
             var response = await StoreWebApiClient.Instance.GetItems<Galeriaimagenes>("Galeriaimagenes/"+this.EmpresasProductos.Codigo);

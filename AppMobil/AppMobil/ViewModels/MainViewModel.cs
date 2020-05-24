@@ -9,6 +9,11 @@ namespace AppMobil.ViewModels
     public class MainViewModel
     {
         #region propiedades
+        public Pedidosempresas Pedidosempresas
+        {
+            get;
+            set;
+        }
         public List<Empresa> EmpresasList
         {
             get;
@@ -58,6 +63,12 @@ namespace AppMobil.ViewModels
             set;
         }
         public ProductoViewModel Producto
+        {
+            get;
+            set;
+        }
+
+        public VerPedidosViewModel VerPedidos
         {
             get;
             set;

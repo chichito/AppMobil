@@ -181,26 +181,26 @@
                                         <Label Grid.Row="4" Text="{Binding Total, Mode=TwoWay, StringFormat='${0}'}" TextColor="Black" FontFamily="ThemeFont" 
                            VerticalOptions="Start" HorizontalOptions="End"/>
                                         <Button Grid.Row="5" VerticalOptions="Start" HorizontalOptions="StartAndExpand"
-                            BackgroundColor="Navy"
-                            BorderRadius="23"
-                            Command="{Binding LoginCommand}"
-                            HeightRequest="46"
-                            WidthRequest="150"
-                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                            Text="Anadir Compra"
-                            TextColor="White">
+                                            BackgroundColor="Navy"
+                                            BorderRadius="23"
+                                            Command="{Binding ComprasCommand}"
+                                            HeightRequest="46"
+                                            WidthRequest="150"
+                                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                                            Text="Anadir Compra"
+                                            TextColor="White">
                                         </Button>
 
                                         <Button 
-                            Grid.Row="5" VerticalOptions="Start" HorizontalOptions="EndAndExpand"
-                            BackgroundColor="Navy"
-                            BorderRadius="23"
-                            Command="{Binding LoginCommand}"
-                            HeightRequest="46"
-                            WidthRequest="150"
-                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                            Text="Ver Compras"
-                            TextColor="White">
+                                            Grid.Row="5" VerticalOptions="Start" HorizontalOptions="EndAndExpand"
+                                            BackgroundColor="Navy"
+                                            BorderRadius="23"
+                                            Command="{Binding VerComprasCommand}"
+                                            HeightRequest="46"
+                                            WidthRequest="150"
+                                            IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                                            Text="Ver Compras"
+                                            TextColor="White">
                                         </Button>
                                     </Grid>
                                 </StackLayout>

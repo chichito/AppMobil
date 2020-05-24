@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Ver Pedidos"
+             x:Class="AppMobil.Views.VerPedidosPage">
+    <ContentPage.Content>
+        <StackLayout  BindingContext="{Binding VerPedidos}"
+            Padding="5,5,5,10">
+            <SearchBar
+                BackgroundColor="Silver"
+                HeightRequest="26"
+                Text="{Binding Filter, Mode=TwoWay}"
+                Placeholder="Digite a Buscar"
+                SearchCommand="{Binding SearchCommand}">
+            </SearchBar>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0"
+                        BackgroundColor="Silver"
+                        HasUnevenRows="true" 
+                        IsPullToRefreshEnabled="true"
+                        IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                        ItemsSource="{Binding VerPedidosempresas}"
+                        SeparatorVisibility="None"
+                        RefreshCommand="{Binding RefreshCommand}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame
+                                        CornerRadius="20"
+                                        HasShadow="true"
+                                        Margin="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" TextColor="Black" FontAttributes="Bold" FontSize="Small" FontFamily="ThemeFont" 
+                                                    VerticalOptions="Start" HorizontalOptions="Start" 
+                                                    Text="{Binding Nombreempresa}">
+                                            </Label>
+                                            <Label Grid.Column="1" TextColor="Black" FontAttributes="Bold" FontSize="Small" FontFamily="ThemeFont" 
+                                                        VerticalOptions="Start" HorizontalOptions="Start" 
+                                                        Text="{Binding Nombreproducto}">
+                                            </Label>
+                                            <Label Grid.Column="2" TextColor="Black" FontAttributes="Bold" FontSize="Small" FontFamily="ThemeFont" 
+                                                        VerticalOptions="Start" HorizontalOptions="Start" 
+                                                        Text="{Binding Cantidad}">
+                                            </Label>
+                                            <Label Grid.Column="3" TextColor="Black" FontAttributes="Bold" FontSize="Small" FontFamily="ThemeFont" 
+                                                        VerticalOptions="Start" HorizontalOptions="Start" 
+                                                        Text="{Binding Precio, StringFormat='${0:0.00}'}">
+                                            </Label>
+                                            <Button
+                                                Grid.Column="4"
+                                                BackgroundColor="Navy"
+                                                BorderRadius="6"
+                                                Clicked="Remove_Clicked"
+                                                HeightRequest="16"
+                                                WidthRequest="70"
+                                                HorizontalOptions="FillAndExpand"
+                                                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                                                Text="Eliminar"
+                                                FontSize="Small"
+                                                TextColor="White">
+                                            </Button>
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StackLayout Grid.Row="1" BackgroundColor="Fuschia">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" TextColor="Black" FontAttributes="Bold" FontSize="30" FontFamily="ThemeFont" 
+                                                        VerticalOptions="Start" HorizontalOptions="Start" 
+                                                        Text="Total Apagar">
+                            </Label>
+                            <Label Grid.Column="0" TextColor="Black" FontAttributes="Bold" FontSize="30" FontFamily="ThemeFont" 
+                                                        VerticalOptions="Start" HorizontalOptions="End" 
+                                                        Text="{Binding TotalPagar}">
+                            </Label>
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+                <Button
+                    Grid.Row="1"
+                    BackgroundColor="Navy"
+                    BorderRadius="26"
+                    Command="{Binding ComprarCommand}"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="C O M R A R"
+                    FontSize="50"
+                    TextColor="White">
+                </Button>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
