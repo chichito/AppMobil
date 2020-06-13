@@ -57,10 +57,14 @@ namespace AppMobil.ViewModels
         {
             this.IsRefreshing = true;
             string sUrl = "productosempresas";
-            if (string.IsNullOrEmpty(this.Filter))
-                sUrl += "?codigoempresa=" + this.Empresa.Codigo;
+            if (!string.IsNullOrEmpty(this.Filter))
+                sUrl += "/" + this.Filter.ToUpper();
+
+            if (!string.IsNullOrEmpty(App.codigoCategoriaEmpresa))
+                sUrl += "?codigocategoria=" + App.codigoCategoriaEmpresa + "&codigoempresa=" + this.Empresa.Codigo;
             else
-                sUrl += "/" + this.Filter.ToUpper() + "?codigoempresa=" + this.Empresa.Codigo;
+                sUrl += "?codigoempresa=" + this.Empresa.Codigo;
+
             //pit?codigoempresa=9FDAC07D-78DD-4B82-BD4B-16224EF77AF5&codigosubcategoria=cf47f4f1-5587-415d-86e1-2eb49130f6b0
             var response = await StoreWebApiClient.Instance.GetItems<EmpresasProductos>(sUrl);
             if (!response.IsSuccess)
@@ -95,7 +99,7 @@ namespace AppMobil.ViewModels
                 Codigo = e.Codigo,
                 Nombre = e.Nombre,
                 Descripcion = e.Descripcion,
-                Imagen = e.Imagen,
+                Imagen = MainViewModel.GetInstance().KeysParametros["IpImagenes"] + e.Imagen,
                 Cantidad = e.Cantidad,
                 Precio = e.Precio,
                 Iva = e.Iva,

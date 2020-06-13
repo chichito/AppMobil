@@ -11,7 +11,8 @@ using Xamarin.Forms;
 namespace AppMobil.ViewModels
 {
     public class LoginViewModel : BaseViewModel
-    {   
+    {
+        NavigationService navigationService;
         #region Attributes
         private string email;
         private string password;
@@ -53,8 +54,7 @@ namespace AppMobil.ViewModels
         #region Constructors
         public LoginViewModel()
         {
-            //this.apiService = new ApiService();
-
+            navigationService = new NavigationService();
             this.IsRemembered = true;
             this.IsEnabled = true;
             this.Email = "fer";
@@ -127,7 +127,9 @@ namespace AppMobil.ViewModels
             await Application.Current.MainPage.DisplayAlert("Welcome!", $"Welcome {usuario.Nombres}", "OK");
             MainViewModel.GetInstance().Empresas = new EmpresasViewModel();
             MainViewModel.GetInstance().EmpresasProductos = new EmpresasProductosViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new EmpresasProductosTabbPage());
+            navigationService.SetMainPage("MasterPage");
+
+            //await Application.Current.MainPage.Navigation.PushAsync(new EmpresasProductosTabbPage());
         }
         #endregion
     }

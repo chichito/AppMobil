@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppMobil.Models
 {
-    public class Subcategoria
+    public class Categorias
     {
 
         [JsonProperty("Codigo")]
@@ -16,17 +16,11 @@ namespace AppMobil.Models
         [JsonProperty("Nombre")]
         public string Nombre { get; set; }
 
-        [JsonProperty("Descripcion")]
-        public string Descripcion { get; set; }
-
         [JsonProperty("Imagen")]
-        public object Imagen { get; set; }
+        public string Imagen { get; set; }
 
-        [JsonProperty("CodigoEmpresa")]
-        public string CodigoEmpresa { get; set; }
-
-        [JsonProperty("Productos")]
-        public IList<object> Productos { get; set; }
-
+        [JsonProperty("Categoriaempresa")]
+        public IList<object> Categoriaempresa { get; set; }
     }
+
 }

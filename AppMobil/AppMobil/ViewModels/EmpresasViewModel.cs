@@ -50,10 +50,13 @@ namespace AppMobil.ViewModels
         #endregion
 
         #region Metodos
-        private async void loadEmpresas()
+        public async void loadEmpresas()
         {
             this.IsRefreshing = true;
-            var response = await StoreWebApiClient.Instance.GetItems<Empresa>("Empresas");
+            string sUrl = "Empresas";
+            if (!string.IsNullOrEmpty(App.codigoCategoriaEmpresa))
+                sUrl += "?codigoCategoria=" + App.codigoCategoriaEmpresa;
+            var response = await StoreWebApiClient.Instance.GetItems<Empresa>(sUrl);
             if (!response.IsSuccess) 
             {
                 this.IsRefreshing = false;
@@ -65,9 +68,6 @@ namespace AppMobil.ViewModels
             this.IsRefreshing = false;
         }
 
-        #endregion
-        
-        #region Metodos
         private IEnumerable<EmpresaItemViewModel> ToEmpresaItemViewModel()
         {
             return MainViewModel.GetInstance().EmpresasList.Select(e => new EmpresaItemViewModel
@@ -77,7 +77,7 @@ namespace AppMobil.ViewModels
                 Direccion = e.Direccion,
                 Telefono = e.Telefono,
                 Celular = e.Celular,
-                Logo = e.Logo,
+                Logo = MainViewModel.GetInstance().KeysParametros["IpImagenes"] + e.Logo,
                 Estado = e.Estado,
                 Iniciohorario = e.Iniciohorario,
                 Finalhorario = e.Finalhorario,

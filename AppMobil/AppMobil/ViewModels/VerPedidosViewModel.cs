@@ -164,7 +164,7 @@ namespace AppMobil.ViewModels
                     pVer.Cantidad = pedidosdetalle.Cantidad;
                     pVer.Iva = pedidosdetalle.Iva;
                     pVer.Recargos = pedidosdetalle.Recargos;
-                    pVer.Precio = pedidosdetalle.Precio;
+                    pVer.Precio = (pedidosdetalle.Cantidad * pedidosdetalle.Precio) + pedidosdetalle.Iva + pedidosdetalle.Recargos;
                     this.TotalPagar += pVer.Precio;
                     pedidosDetallesVer.Add(pVer);
                 }

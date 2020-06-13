@@ -10,13 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace AppMobil.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MasterPage : MasterDetailPage
+    public partial class CategoriasPage : ContentPage
     {
-        public MasterPage()
+        public CategoriasPage()
         {
             InitializeComponent();
-            App.Navigator = Navigator;
-            App.Master = this;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AppMobil.Models;
+using AppMobil.Services;
 using AppMobil.Services.Services;
 using AppMobil.Views;
 using GalaSoft.MvvmLight.Command;
@@ -31,6 +32,8 @@ namespace AppMobil.ViewModels
             get { return this.galeriaimagenes; }
             set { SetValue(ref this.galeriaimagenes, value); }
         }
+
+        private NavigationService navigationService;
 
         public EmpresasProductos EmpresasProductos
         {
@@ -81,6 +84,7 @@ namespace AppMobil.ViewModels
         #region Constructor
         public  ProductoViewModel(EmpresasProductos empresasProductos)
         {
+            navigationService = new NavigationService();
             this.EmpresasProductos = new EmpresasProductos();
             this.EmpresasProductos.Codigo = empresasProductos.Codigo;
             this.EmpresasProductos.Nombre = empresasProductos.Nombre;
@@ -142,7 +146,7 @@ namespace AppMobil.ViewModels
                 MainViewModel.GetInstance().Pedidosempresas = new Pedidosempresas();
                 MainViewModel.GetInstance().Pedidosempresas.Codigousuario = App.CurrentUsuario.Codigo;
                 MainViewModel.GetInstance().Pedidosempresas.Fechapedido = DateTime.Now;
-                MainViewModel.GetInstance().Pedidosempresas.Codigoestado = 1;
+                MainViewModel.GetInstance().Pedidosempresas.Codigoestado = Convert.ToInt16(MainViewModel.GetInstance().KeysParametros["estadopedido"].ToString());
             }
             
             Pedido pedido = null;
@@ -155,8 +159,8 @@ namespace AppMobil.ViewModels
                 pedido.Codigoempresa = this.EmpresasProductos.CodigoEmpresa;
                 pedido.Nombreempresa = this.EmpresasProductos.NombreEmpresa;
                 pedido.Logoempresa = this.EmpresasProductos.LogoEmpresa;
-                pedido.Codigoestadodespacho = 1;
-                pedido.Codigoestadopedido = 1;
+                pedido.Codigoestadodespacho = Convert.ToInt16(MainViewModel.GetInstance().KeysParametros["estadodespacho"].ToString());
+                pedido.Codigoestadopedido = Convert.ToInt16(MainViewModel.GetInstance().KeysParametros["estadopedido"].ToString());
                 MainViewModel.GetInstance().Pedidosempresas.Pedidos.Add(pedido);
             }
 
@@ -170,11 +174,11 @@ namespace AppMobil.ViewModels
             pedidosdetalle.Codigoproducto = this.EmpresasProductos.Codigo;
             pedidosdetalle.Nombreproducto = this.EmpresasProductos.Nombre;
             pedidosdetalle.Logoproducto = this.EmpresasProductos.Imagen;
-            pedidosdetalle.Codigoestado = 1;
+            pedidosdetalle.Codigoestado = Convert.ToInt16(MainViewModel.GetInstance().KeysParametros["estadoproducto"].ToString());
             pedidosdetalle.Cantidad = this.Cantidad;
             pedidosdetalle.Iva = this.Iva;
             pedidosdetalle.Recargos = this.Recargos;
-            pedidosdetalle.Precio = this.Total;
+            pedidosdetalle.Precio = Convert.ToDecimal(this.EmpresasProductos.Precio);
             pedido.Pedidosdetalles.Add(pedidosdetalle);
 
             //var response = await StoreWebApiClient.Instance.PostItem<Pedidosempresas>("pedidosempresas", MainViewModel.GetInstance().Pedidosempresas);
@@ -190,7 +194,8 @@ namespace AppMobil.ViewModels
         private async void VerComprasAsync()
         {
             MainViewModel.GetInstance().VerPedidos = new VerPedidosViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new VerPedidosPage());
+            await navigationService.NavigateOnMaster("VerPedidosPage");
+            //await Application.Current.MainPage.Navigation.PushAsync(new VerPedidosPage());
 
         }
         public async void CargarGaleriaImagenes()

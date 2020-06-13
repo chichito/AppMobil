@@ -43,7 +43,7 @@ namespace AppMobil.ViewModels
                 Codigo = e.Codigo,
                 Nombre = e.Nombre,
                 Descripcion = e.Descripcion,
-                Imagen = e.Imagen,
+                Imagen = MainViewModel.GetInstance().KeysParametros["IpImagenes"] + e.Imagen,
                 CodigoEmpresa = e.CodigoEmpresa,
             });
         }

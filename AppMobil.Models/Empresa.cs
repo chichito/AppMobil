@@ -31,21 +31,36 @@ namespace AppMobil.Models
 
         [JsonProperty("Estado")]
         public bool Estado { get; set; }
+
         [JsonProperty("Iniciohorario")]
         public TimeSpan? Iniciohorario { get; set; }
+
         [JsonProperty("Finalhorario")]
         public TimeSpan? Finalhorario { get; set; }
 
+        [JsonProperty("Latitud")]
+        public double? Latitud { get; set; }
+
+        [JsonProperty("Longitud")]
+        public double? Longitud { get; set; }
+
+        [JsonProperty("Radiocobertura")]
+        public int? Radiocobertura { get; set; }
+
         [JsonProperty("Categoriaempresa")]
-        public IList<object> Categoriaempresa { get; set; }
+        public IList<Categoriaempresa> Categoriaempresa { get; set; }
 
         [JsonProperty("Empleadosempresas")]
         public IList<object> Empleadosempresas { get; set; }
+
+        [JsonProperty("Pedidos")]
+        public IList<object> Pedidos { get; set; }
 
         [JsonProperty("Subcategorias")]
         public List<Subcategoria> Subcategorias { get; set; }
 
         [Display(Name = "Telefonos")]
         public string FullTelefonos { get; set; }
+        
     }
 }

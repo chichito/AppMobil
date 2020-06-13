@@ -1,4 +1,5 @@
 ﻿using AppMobil.Models;
+using AppMobil.Services;
 using AppMobil.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -11,6 +12,12 @@ namespace AppMobil.ViewModels
 {
     public class ProductosItemViewModel : EmpresasProductos
     {
+        private NavigationService navigationService;
+
+        public ProductosItemViewModel()
+        {
+            navigationService = new NavigationService();
+        }
         #region Commands
         public ICommand SelectionCommand
         {
@@ -25,7 +32,8 @@ namespace AppMobil.ViewModels
             //MainViewModel.GetInstance().EmpresaCategorias = new EmpresaCategoriasViewModel(this);
             //MainViewModel.GetInstance().EmpresaProductos = new EmpresaProductosViewModel(this);
             MainViewModel.GetInstance().Producto = new ProductoViewModel(this);
-            await Application.Current.MainPage.Navigation.PushAsync(new ProductoPage());
+            await navigationService.NavigateOnMaster("ProductoPage");
+            //await Application.Current.MainPage.Navigation.PushAsync(new ProductoPage());
         }
         #endregion
 

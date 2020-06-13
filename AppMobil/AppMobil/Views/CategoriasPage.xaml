@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             mc:Ignorable="d"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Pagina de Categorias"
+             x:Class="AppMobil.Views.CategoriasPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ffimageloadingsvg:SvgImageSourceConverter 
+                x:Key="SvgImageSourceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout 
+            BindingContext="{Binding Categorias}"
+            Padding="5">
+            <SearchBar
+                BackgroundColor="Silver"
+                HeightRequest="26"
+                Text="{Binding Filter, Mode=TwoWay}"
+                Placeholder="Digite a Buscar"
+                SearchCommand="{Binding SearchCommand}">
+            </SearchBar>
+            <Button
+                BackgroundColor="Navy"
+                BorderRadius="23"
+                Command="{Binding TodosCommand}"
+                HeightRequest="46"
+                HorizontalOptions="FillAndExpand"
+                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                Text="Todas las Empresas"
+                TextColor="White">
+            </Button>
+            <ListView 
+                BackgroundColor="Silver"
+                HasUnevenRows="true" 
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                ItemsSource="{Binding Categorias}"
+                SeparatorVisibility="None"
+                RefreshCommand="{Binding RefreshCommand}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame
+                                CornerRadius="20"
+                                HasShadow="true"
+                                Margin="5">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectCategoriaCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ffimageloading:CachedImage CacheType="Memory"
+                                        Grid.Column="0"
+                                        HeightRequest="30"
+                                        Source="{Binding Imagen, Converter={StaticResource SvgImageSourceConverter}}"
+                                        WidthRequest="60">
+                                        <ffimageloading:CachedImage.Transformations>
+                                            <fftransformations:CircleTransformation/>
+                                        </ffimageloading:CachedImage.Transformations>
+                                    </ffimageloading:CachedImage>
+                                    <Label Grid.Column="1" TextColor="Black" FontAttributes="Bold" FontSize="Medium" FontFamily="ThemeFont" 
+                                            VerticalOptions="CenterAndExpand" HorizontalOptions="Start" 
+                                            Text="{Binding Nombre}">
+                                    </Label>
+                                    <Image 
+                                        Grid.Column="2"
+                                        WidthRequest="50"
+                                        Source="ic_chevron_right">
+                                    </Image>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
